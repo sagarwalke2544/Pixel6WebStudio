@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link href="main.css" rel="stylesheet">
+    <title>Document</title>
+    <script src="script.js"> </script>
+</head>
+<body>
+    <div class="form-box">
+            <div>
+                <h3>Personal Details</h3>
+            </div>
+        <div>
+            <label class="label">Full Name</label>
+            <input class="input" type="text" name="fullName" id="fullname" placeholder="Enter the Full Name" />
+            <p id="fullname_error" class="error"></p>
+        </div>
+        <div>
+            <label class="label">Email</label>
+            <input class="input" type="text" name="email" id="email" placeholder="Enter the Email" />
+            <p id="email_error" class="error"></p>
+        </div>
+        <div>
+            <label class="label">Phone Number</label>
+            <div style="display: flex;">
+                <input class="input" type="text" name="phoneNumber" id="phonenumber"  onkeyup="checkFormatPhoneNo()" maxlength="18" placeholder="Enter the phone Number" />
+                <div style="width: 50%;display: inline-flex; justify-content: center; align-items: center;margin-bottom: 16px;">
+                    <img id="provider_img" src="" style="height: 40px; width: 50px;display: none;" />
+                    <span id="state_name"></span>
+                </div>
+            </div>
+            
+            <p id="phonenumber_error" class="error"></p>
+        </div>
+        <div class="text-center">
+            <button type="button" class="button" name="submit" id="submit" onclick="submitData()">Submit</button>
+        </div>
+    </div>
+</body>
+</html>

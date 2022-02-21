@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Thank you</title>
+    <style>
+      
+    </style>
+    <link href="main.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="form-box">
+      <p>
+        Dear <span id="firstNameText" class="font-bold"></span>,<br>
+        Thank you for your inquiry. A 4 digit verification number has been sent to your phone number: 
+        <span id="phoneNoText" class="font-bold"></span>, <br>
+        Please enter in the following box and submit for confirmation:
+      </p>
+      <div style="margin-top: 10px;">
+        <label class="label">Enter OTP</label>
+        <input class="input" type="text" name="otptext" id="otptext" placeholder="Enter the OTP" />
+        <p id="OTPError" class="error"></p>
+        <button type="button" class="button" onclick="submitOTP()">Validate</button>
+      </div>
+    </div>
+    
+  </body>
+  <script>
+    bindDetails();
+    var formDetails = JSON.parse(sessionStorage.getItem('formDetails'));
+    const otp = formDetails.otp;
+      console.log(otp);
+    function submitOTP() {
+      var formDetails = JSON.parse(sessionStorage.getItem('formDetails'));
+      const otpText = document.getElementById('otptext').value;
+      console.log(formDetails);
+      if (!otpText || !otpText.trim()) {
+        document.getElementById('OTPError').innerHTML = 'Please Enter OTP';
+      } else {
+        if (otp == otpText) {
+          // for success 
+          window.location.href = 'http://pixel6.co/';
+        } else if(otp != otpText) {
+          if (formDetails.otpInvalidAttempt < 3) {
+            document.getElementById('OTPError').innerHTML = 'Please Enter valid OTP';
+            formDetails.otpInvalidAttempt++;
+            sessionStorage.setItem("formDetails", JSON.stringify(formDetails));
+          } else {
+            // for 404
+            window.location.href = 'http://pixel6.co/404';
+          }
+        }
+      }
+    }
+
+    function bindDetails() {
+      var formDetails = JSON.parse(sessionStorage.getItem('formDetails'));
+      if (formDetails) {
+        const fullNameArr = (formDetails.fullName) ? formDetails.fullName.split(' ') : '';
+        const firstName =
+          (fullNameArr[0] && fullNameArr[0].trim()) ? fullNameArr[0].trim() : '';
+        document.getElementById('firstNameText').innerHTML = firstName;
+        document.getElementById('phoneNoText').innerHTML = formDetails.phoneNo;
+      }
+    }
+  </script>
+</html>
